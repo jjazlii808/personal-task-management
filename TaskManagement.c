@@ -142,31 +142,40 @@ void taskListMenu(){ // options to choose how to view the list
 void addTask(){ // add task to the list
     system("cls");
     char another = 'y';
+    char buffer[100];
+    int ch;
+
     while (another == 'y'){ //continues to loop while another variable is still 'y'
         fp = fopen("Personal Task Management.txt", "a");
+        if(fp == NULL) {
+            printf("Error opening file!\n");
+            return;
+        }
+
+        while((ch = getchar()) != '\n' && ch != EOF);
         
         printf("Enter the task name: ");
-        fflush(stdin);
-        scanf("%[^\n]s", t.tasks);
+        fgets(t.tasks, sizeof(t.tasks), stdin);
+        t.tasks[strcspn(t.tasks, "\n")] = 0;
 
         printf("Enter the task category: ");
-        fflush(stdin);
-        scanf("%[^\n]s", t.category);
+        fgets(t.category, sizeof(t.category), stdin);
+        t.category[strcspn(t.category, "\n")] = 0;
 
         printf("Enter the task status: ");
-        fflush(stdin);
-        scanf("%[^\n]s", t.status);
+        fgets(t.status, sizeof(t.status), stdin);
+        t.status[strcspn(t.status, "\n")] = 0;
         
         printf("Enter the task due date (dd-mm-yy): ");
-        fflush(stdin);
-        scanf("%d-%d-%d", &t.day, &t.month, &t.year); // integers seperated by "-" symbol
-        
+        fgets(buffer, sizeof(buffer), stdin);
+        sscanf(buffer, "%d-%d-%d", &t.day, &t.month, &t.year);
+
         fwrite(&t, size, 1, fp);
         fclose(fp);
         
         printf("Would you like to add another task? (y/n) : ");
-        fflush(stdin);
-        scanf("%c", &another);
+        fgets(buffer, sizeof(buffer), stdin);
+        sscanf(buffer, " %c", &another);
     }
 }
 
