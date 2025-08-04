@@ -1,1 +1,2 @@
 # personal-task-management
+This is a console-based task management system written in C that allows users to manage their personal tasks efficiently. Users can add, update, delete, and view tasks by entering the task's name, category, status, and due date. The task list can be sorted and viewed by ascending or descending date order, or by recently added tasks, providing flexibility in organizing daily responsibilities.
